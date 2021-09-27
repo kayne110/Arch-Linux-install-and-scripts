@@ -149,4 +149,5 @@ chmod 0755 /root/.myscripts/rkhunterclamav_daily.sh
 ln /root/.myscripts/rkhunterclamav_daily.sh /etc/cron.daily/rkhunterclamav_daily
 
 #check to see if it is hard linked
-ls -li /etc/cron.daily/clamav_daily
+ls -li /etc/cron.daily/rkhunterclamav_daily
+
