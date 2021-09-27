@@ -96,13 +96,21 @@ yay -s protonvpn unixbench librewolf brave-bin minecraft-launcher
 
 #things to enable
 freshclam -v
-Systemctl enable clamav-freshclam.service
-Systemctl start clamav-freshclam.service
-Systemctl enable clamav-daemon.service
-Systemctl start clamav-daemon.service
-Systemctl enable protonvpn
-Systemctl start protonvpn
+systemctl enable clamav-freshclam.service
+systemctl start clamav-freshclam.service
+systemctl enable clamav-daemon.service
+systemctl start clamav-daemon.service
+systemctl enable protonvpn
+systemctl start protonvpn
+systemctl enable clamav-unofficial-sigs.timer
+systemctl start clamav-unofficial-sigs.timer
+yay -S clamav-unofficial-sigs
 
+clamav-unofficial-sigs.sh
+
+exit
+umount -R /mnt #if not busy partitions then reboot if their is then using fuser
+reboot
 
 ###
 ###Jobs done Arch is intalled with all applications wanted
