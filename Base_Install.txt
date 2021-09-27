@@ -95,7 +95,7 @@ pacman -Syu broadcom-wl steam wine-staging giflib lib32-giflib libpng lib32-libp
 yay -s protonvpn unixbench librewolf brave-bin minecraft-launcher
 
 #things to enable
-freshclam
+freshclam -v
 Systemctl enable clamav-freshclam.service
 Systemctl start clamav-freshclam.service
 Systemctl enable clamav-daemon.service
