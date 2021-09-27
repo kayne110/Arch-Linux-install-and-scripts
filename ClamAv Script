@@ -1,0 +1,53 @@
+##Gotten the script from
+#https://www.lisenet.com/2014/automate-clamav-to-perform-daily-system-scan-and-send-email-notifications-on-linux/ 
+#With some edits
+#
+
+#create a new file in script diretory
+
+sudo nano /root/.myscripts/clamav_daily.sh
+
+#create a scan log directory 
+mkdir /home/(user)/clamav_logs
+
+#Script file has
+
+#!/bin/bash
+LOGFILE="/var/log/clamav/clamav-$(date +'%Y-%m-%d').log"; 
+DIRTOSCAN="/home";
+
+# Update ClamAV database
+echo "Looking for ClamAV database updates...";
+freshclam --quiet;
+clamav-unofficial-sigs.sh;
+
+TODAY=$(date +%u);
+
+if [ "$TODAY" == "6" ];then
+ echo "Starting a full weekend scan.";
+
+ nice -n5 clamscan -ri / --exclude-dir=/sys/ &>"$LOGFILE";
+else
+ DIRSIZE=$(du -sh "$DIRTOSCAN" 2>/dev/null | cut -f1);
+
+ echo "Starting a daily scan of "$DIRTOSCAN" directory.
+ Amount of data to be scanned is "$DIRSIZE".";
+
+ clamscan -ri "$DIRTOSCAN" &>"$LOGFILE";
+fi
+
+# get the value of "Infected lines" 
+MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3); 
+
+if [ "$MALWARE" -ne "0" ];then 
+  cp /var/log/clamav/clamav-$(date +'%Y-%m-%d').log /home/(user)/clamav_logs/
+fi 
+exit 0
+
+#Save file
+
+chmod 0755 /root/.myscripts/clamav_daily.sh
+ln /root/.myscripts/clamav_daily.sh /etc/cron.daily/clamav_daily
+
+#check to see if it is hard linked
+ls -li /etc/cron.daily/clamav_daily
