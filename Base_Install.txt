@@ -66,13 +66,20 @@ nano /etc/pacman.cof
 #Include = /etc/pacman.d/mirrorlist
 
 #Final Setup of Applications
-pacman -Syu xorg-xwayland plasma xorg nvidia xorg-xinit base-devel git firefox xorg-server vim egl-wayland plasma-wayland-session kde-applications lightdm-webkit2-greeter lightdm
+pacman -Syu xorg-xwayland flatpak gnome gnome-tweaks xorg nvidia xorg-xinit base-devel git firefox xorg-server vim lightdm-webkit2-greeter lightdm
+
+#generate xorg.conf
+Xorg :0 -configure
+
+#if not .xinit file do this
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
 
 #edit xinit file
 nano .xinitrc
 #Add these lines to the end
-DESKTOP_SESSION=plasma
-exec startplasma-x11
+export XGS_SESSION_TYPE=x11
+export GDK_BACKEND=x11
+exec gnome-session
 
 
 #install AUR Helper YAY
