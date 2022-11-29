@@ -1,0 +1,1 @@
+sudo pacman -Syu retroarch retroarch-assets-xmb retroarch-assets-ozone
