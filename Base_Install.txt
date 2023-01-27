@@ -3,6 +3,7 @@
  ls /sys/firmware/efi/efivars
 
  Ping google.com #check for internet connection
+ 
  timedatectl set-ntp true
  timedatectl status #confirm time and date is correct
 
@@ -27,7 +28,11 @@
  pacman -S nano
 
 #edit locale-gen file if needed to your correct locale
+locale-gen
 nano /etc/locale.gen
+#Uncomment lines 
+# en_US.UTF-8
+# UTF-8
 locale-gen
 
 #Edit host names and host
@@ -65,8 +70,12 @@ nano /etc/pacman.cof
 #[multilib]
 #Include = /etc/pacman.d/mirrorlist
 
+#edit mirrorlist
+nano /etc/pacman.d/mirrorlist
+#Only leave close mirrors
+
 #Final Setup of Applications
-pacman -Syu xorg-xwayland flatpak gnome gnome-tweaks xorg nvidia xorg-xinit base-devel git firefox xorg-server vim lightdm-webkit2-greeter lightdm
+pacman -Syu xorg-xwayland flatpak xorg nvidia xorg-xinit base-devel git firefox xorg-server vim elinks vi
 
 #generate xorg.conf
 Xorg :0 -configure
@@ -74,62 +83,16 @@ Xorg :0 -configure
 #if not .xinit file do this
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 
-#edit xinit file
-nano .xinitrc
-#Add these lines to the end
-export XGS_SESSION_TYPE=x11
-export GDK_BACKEND=x11
-exec gnome-session
-
-
 #install AUR Helper YAY
 sudo git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
 
-#setting up light dm
-systemctl disable sddm
-#Change theme and configuration
-/etc/lightdm/lightdm.conf
-systemctl enable lightdm
-
-#final Application install
-
-(sudo) pacman -Syu broadcom-wl steam wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader lutris meson systemd git dbus lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader clamav openvpn base openssh chromium youtube-dl qbittorrent thunderbird gnome-photos gimp geotag blender totem vlc handbrake ark regexxer gitlab codeblocks cmake baobab gnome-usage gnome-system-monitor neofetch ksystemlog calligra libreoffice-fresh bookworm calibre bettercap etherape tcpdump sshguard lynis rkhunter john bitwarden hashdeep gnome-disk-utility ntfs-3g tar
-
-#yay application install
-yay -s protonvpn 
-yay -s unixbench
-yay -s librewolf
-yay -s brave-bin
-yay -s minecraft-launcher
-yay -s moonlight-qt
-yay -S clamav-unofficial-sigs
-
-#things to enable
-freshclam -v
-systemctl enable clamav-freshclam.service
-systemctl start clamav-freshclam.service
-systemctl enable clamav-daemon.service
-systemctl start clamav-daemon.service
-systemctl enable protonvpn
-systemctl start protonvpn
-systemctl enable clamav-unofficial-sigs.timer
-systemctl start clamav-unofficial-sigs.timer
-
-clamav-unofficial-sigs.sh
-
-exit
-umount -R /mnt #if not busy partitions then reboot if their is then using fuser
-reboot
-
 #on Reboot create a script directory
 mkdir -m 0755 /root/.myscripts
 
 
 ###
-###Jobs done Arch is intalled with all applications wanted
+###Jobs done Arch is intalled
 ###
-###
-
