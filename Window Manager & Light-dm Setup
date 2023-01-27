@@ -1,11 +1,11 @@
-sudo pacman -Syu lightdm-webkit2-greeter lightdm
+sudo pacman -Syu lightdm-webkit2-greeter lightdm cutefish
 
 #edit xinit file
 nano .xinitrc
 #Add these lines to the end
 export XGS_SESSION_TYPE=x11
 export GDK_BACKEND=x11
-exec gnome-session
+exec cutefish-session
 
 
 #setting up light dm
@@ -13,3 +13,6 @@ systemctl disable sddm
 #Change theme and configuration
 /etc/lightdm/lightdm.conf
 systemctl enable lightdm
+
+
+sudo cp -r /wallpapers usr/sahre/backgrounds
