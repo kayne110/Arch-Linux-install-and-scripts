@@ -1,0 +1,13 @@
+#edit xinit file
+nano .xinitrc
+#Add these lines to the end
+export XGS_SESSION_TYPE=x11
+export GDK_BACKEND=x11
+exec gnome-session
+
+
+#setting up light dm
+systemctl disable sddm
+#Change theme and configuration
+/etc/lightdm/lightdm.conf
+systemctl enable lightdm
