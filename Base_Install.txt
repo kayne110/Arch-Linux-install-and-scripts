@@ -92,6 +92,9 @@ makepkg -si
 #on Reboot create a script directory
 mkdir -m 0755 /root/.myscripts
 
+exit
+umount -R /mnt #if not busy partitions then reboot if their is then using fuser
+reboot
 
 ###
 ###Jobs done Arch is intalled
