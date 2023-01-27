@@ -1,3 +1,5 @@
+sudo pacman -Syu lightdm-webkit2-greeter lightdm
+
 #edit xinit file
 nano .xinitrc
 #Add these lines to the end
