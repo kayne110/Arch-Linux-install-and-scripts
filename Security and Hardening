@@ -1,0 +1,10 @@
+#Security
+sudo pacman -Syu lynis metaspoloit clamtk rkhunter logwatch wireshark-cli wireshark-qt hashdeep rhash 
+
+#Firewalls
+Sudo pacman -Syu firewalld fwbuilder 
+
+#adguard
+curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+
+yay -S adguardhome
